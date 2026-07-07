@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>labor.fun — the assistant that lives in your team's chat</title>
+<meta name="description" content="labor.fun is a capable AI assistant that lives inside the chat your team already uses — Slack, Telegram, Discord, Teams, and web. It remembers your group, knows your people and docs, and does real work. Worker-owned. Private by design. Free to start." />
+<meta name="theme-color" content="#EA5817" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='1' fill='%23EA5817'/%3E%3Cpath d='M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z' fill='%23F6F3EB'/%3E%3C/svg%3E" />
+
+<meta property="og:title" content="labor.fun — the assistant that lives in your team's chat" />
+<meta property="og:description" content="A capable AI assistant that lives inside Slack, Telegram, Discord, Teams, and web chat. It knows your people and your docs, and does real work. Worker-owned. Private by design." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://lab0r.fun" />
+<meta property="og:site_name" content="labor.fun" />
+<meta property="og:image" content="https://lab0r.fun/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="labor.fun — the assistant that lives in your team's chat. Worker-owned. Private by design." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="labor.fun — the assistant that lives in your team's chat" />
+<meta name="twitter:description" content="A capable AI assistant that lives inside Slack, Telegram, Discord, Teams, and web chat. Worker-owned. Private by design. Free to start." />
+<meta name="twitter:image" content="https://lab0r.fun/og-image.png" />
+<meta name="twitter:image:alt" content="labor.fun — the assistant that lives in your team's chat." />
+
+<style>
+@font-face{font-family:"Bread Display";src:url("fonts/PogacaDisplayBlack.woff2") format("woff2");font-weight:900;font-display:swap}
+@font-face{font-family:"Bread Display";src:url("fonts/PogacaDisplayBold.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Bread Display";src:url("fonts/PogacaDisplayRegular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Bread Body";src:url("fonts/PogacaBodyRegular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Bread Body";src:url("fonts/PogacaBodyBold.woff2") format("woff2");font-weight:700;font-display:swap}
+
+:root{
+  --core-orange:#EA5817; --primary-orange:#ea6023; --orange-1:#d14a0f; --orange-2:#b83c08; --orange-0:#ffc080;
+  --primary-jade:#286b63; --jade-2:#134a44; --primary-blue:#1c5bb9; --blue-2:#1b4a90;
+  --paper-main:#f6f3eb; --paper-0:#fdfcf9; --paper-1:#f0ebe0; --paper-2:#eae2d6;
+  --ink:#1b201a; --brown:#513c35; --brown-1:#301f18; --grey:#808080; --white:#ffffff;
+  --shadow:#595959;
+  --maxw:1180px;
+  --font-display:"Bread Display",ui-sans-serif,system-ui,sans-serif;
+  --font-body:"Bread Body",ui-sans-serif,system-ui,sans-serif;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-weight:400;
+  background:var(--paper-main);
+  color:var(--ink);
+  line-height:1.55;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-0.03em;
+  line-height:0.94;
+  margin:0;
+}
+h4{letter-spacing:-0.02em;line-height:1}
+p{margin:0 0 1rem}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;width:100%}
+
+/* ---- Buttons: signature "lifted" square button ---- */
+.btn{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  font-family:var(--font-body);
+  font-weight:700;
+  font-size:1rem;
+  line-height:1;
+  padding:17px 30px;
+  text-decoration:none;
+  cursor:pointer;
+  border:none;
+  transition:transform .18s ease-out, background-color .18s ease-out, color .18s ease-out;
+  will-change:transform;
+}
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--shadow);
+  z-index:-1;
+  transition:transform .18s ease-out;
+}
+.btn-primary{background:var(--core-orange);color:var(--paper-main)}
+.btn-primary:hover,.btn-primary:focus-visible{background:var(--orange-1);color:#fff}
+.btn-ink{background:var(--ink);color:var(--paper-main)}
+.btn-ink:hover,.btn-ink:focus-visible{background:#000}
+.btn-paper{background:var(--paper-0);color:var(--ink)}
+.btn-paper:hover,.btn-paper:focus-visible{background:#fff}
+/* lifted state */
+.btn{transform:translate(-4px,-4px)}
+.btn::after{transform:translate(4px,4px)}
+.btn:active{transform:translate(0,0)}
+.btn:active::after{transform:translate(0,0)}
+@media (prefers-reduced-motion:reduce){
+  .btn,.btn::after,.btn:active,.btn:active::after{transition:none}
+}
+
+.btn-lg{padding:19px 36px;font-size:1.06rem}
+
+.link-arrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--font-body);font-weight:700;
+  text-decoration:none;
+  border-bottom:2px solid currentColor;
+  padding-bottom:2px;
+  transition:opacity .15s ease;
+}
+.link-arrow:hover{opacity:.7}
+
+:focus-visible{outline:3px solid var(--primary-blue);outline-offset:3px;border-radius:2px}
+.btn:focus-visible{outline-offset:5px}
+
+.skip{
+  position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;
+  padding:12px 18px;z-index:200;font-weight:700;text-decoration:none;
+}
+.skip:focus{left:12px;top:12px}
+
+/* ---- Nav ---- */
+header.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(246,243,235,.86);
+  backdrop-filter:saturate(140%) blur(10px);
+  -webkit-backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:2px solid var(--ink);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand svg{width:30px;height:30px;flex:none}
+.brand .word{font-family:var(--font-display);font-weight:900;font-size:1.28rem;text-transform:uppercase;letter-spacing:-0.04em}
+.nav-cta{display:flex;align-items:center;gap:16px}
+.nav-anchors{display:flex;align-items:center;gap:30px}
+.nav-anchors a{
+  text-decoration:none;font-weight:700;font-size:.95rem;color:var(--brown);
+  transition:color .15s ease;
+}
+.nav-anchors a:hover{color:var(--core-orange)}
+.nav-toggle{display:none;background:none;border:2px solid var(--ink);padding:8px;cursor:pointer;color:var(--ink)}
+.nav-toggle svg{display:block}
+
+@media (max-width:860px){
+  .nav-anchors{
+    position:absolute;top:66px;left:0;right:0;
+    flex-direction:column;align-items:flex-start;gap:0;
+    background:var(--paper-main);border-bottom:2px solid var(--ink);
+    padding:8px 24px 20px;
+    display:none;
+  }
+  .nav-anchors.open{display:flex}
+  .nav-anchors a{padding:12px 0;font-size:1.05rem;width:100%;color:var(--ink)}
+  .nav-toggle{display:inline-flex}
+  .nav-cta .btn{display:none}
+}
+
+/* ---- Section rhythm ---- */
+section{padding:88px 0}
+.sec-ink{background:var(--ink);color:var(--paper-main)}
+.sec-brown{background:var(--brown-1);color:var(--paper-main)}
+.sec-paper0{background:var(--paper-0)}
+.sec-paper2{background:var(--paper-2)}
+.sec-ink h1,.sec-ink h2,.sec-ink h3,.sec-brown h1,.sec-brown h2,.sec-brown h3{color:var(--paper-main)}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--font-body);font-weight:700;
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--orange-2);
+  margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--core-orange);display:inline-block}
+.sec-ink .eyebrow,.sec-brown .eyebrow{color:var(--orange-0)}
+.sec-head{max-width:720px;margin-bottom:52px}
+.sec-head h2{font-size:clamp(2.1rem,5.4vw,3.55rem)}
+.sec-head p{font-size:1.14rem;margin-top:20px;color:var(--brown);max-width:600px}
+.sec-ink .sec-head p,.sec-brown .sec-head p{color:rgba(255,255,255,.88)}
+
+/* ---- Hero ---- */
+.hero{
+  background:
+    radial-gradient(1100px 520px at 82% -8%, rgba(234,88,23,.12), transparent 60%),
+    radial-gradient(720px 460px at 8% 108%, rgba(40,107,99,.10), transparent 60%),
+    var(--paper-main);
+  padding:64px 0 76px;
+  overflow:hidden;
+}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--paper-0);border:2px solid var(--ink);
+  padding:7px 14px;font-weight:700;font-size:.82rem;
+  margin-bottom:26px;
+}
+.pill .dot{width:9px;height:9px;border-radius:50%;background:var(--primary-jade);box-shadow:0 0 0 3px rgba(40,107,99,.22)}
+.hero h1{font-size:clamp(2.9rem,7.6vw,5.7rem);letter-spacing:-0.035em}
+.hero h1 .hl{color:var(--core-orange)}
+.hero-sub{font-size:1.24rem;margin:26px 0 34px;max-width:520px;color:var(--brown)}
+.hero-cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.hero-trust{margin-top:30px;display:flex;gap:22px;flex-wrap:wrap;font-size:.9rem;font-weight:700}
+.hero-trust span{display:inline-flex;align-items:center;gap:8px;color:var(--brown)}
+.hero-trust svg{flex:none;color:var(--primary-jade)}
+
+/* ---- Chat mockup (the star) ---- */
+.phone{
+  position:relative;
+  background:var(--paper-0);
+  border:2px solid var(--ink);
+  box-shadow:14px 14px 0 var(--ink);
+  padding:0;
+  overflow:hidden;
+}
+.chat-head{
+  display:flex;align-items:center;gap:11px;
+  padding:14px 16px;border-bottom:2px solid var(--ink);
+  background:var(--paper-1);
+}
+.chat-avatar{width:34px;height:34px;flex:none;border-radius:6px;overflow:hidden;display:block}
+.chat-avatar svg{width:100%;height:100%;display:block}
+.chat-who{display:flex;flex-direction:column;line-height:1.15}
+.chat-who .name{font-weight:700;font-size:.98rem;display:flex;align-items:center;gap:7px}
+.chat-who .status{font-size:.76rem;color:var(--primary-jade);font-weight:700;display:flex;align-items:center;gap:6px}
+.chat-who .status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--primary-jade)}
+.chat-platform{margin-left:auto;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--brown);border:1.5px solid var(--paper-2);padding:4px 8px}
+.chat-body{padding:20px 16px;display:flex;flex-direction:column;gap:14px;background:var(--paper-0)}
+.msg{max-width:82%;padding:11px 14px;font-size:.92rem;line-height:1.45;position:relative}
+.msg .sender{font-size:.72rem;font-weight:700;margin-bottom:4px;color:var(--brown)}
+.msg.them{
+  align-self:flex-start;
+  background:var(--paper-2);
+  color:var(--ink);
+  border-radius:4px 14px 14px 14px;
+}
+.msg.bot{
+  align-self:flex-end;
+  background:var(--ink);
+  color:var(--paper-main);
+  border-radius:14px 4px 14px 14px;
+}
+.msg.bot .sender{color:var(--orange-0);opacity:1}
+.msg.bot strong{color:#fff}
+.msg .cite{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:8px;font-size:.72rem;font-weight:700;
+  color:var(--orange-0);opacity:.95;
+}
+.msg .cite svg{flex:none}
+.chat-input{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;border-top:2px solid var(--ink);background:var(--paper-1);
+}
+.chat-input .fake-field{flex:1;background:var(--paper-0);border:1.5px solid var(--paper-2);padding:9px 12px;font-size:.85rem;color:var(--brown)}
+.chat-input .send{width:34px;height:34px;flex:none;background:var(--core-orange);display:grid;place-items:center;color:#fff;border-radius:4px}
+
+/* ---- Platforms ---- */
+.plat-row{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:52px}
+.plat-chip{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--paper-0);border:2px solid var(--ink);
+  padding:12px 18px;font-weight:700;font-size:1rem;
+  box-shadow:4px 4px 0 var(--ink);
+}
+.plat-chip svg{flex:none}
+.mock-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:26px}
+.mock-grid .mock{flex:1 1 320px;max-width:360px}
+.mock{
+  background:var(--paper-0);border:2px solid var(--ink);
+  box-shadow:8px 8px 0 var(--ink);
+  display:flex;flex-direction:column;
+}
+.mock .m-head{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:2px solid var(--ink)}
+.mock .m-head .tag{font-weight:700;font-size:.92rem}
+.mock .m-head .tag small{display:block;font-size:.72rem;font-weight:700;color:var(--brown)}
+.mock .m-body{padding:16px 15px;display:flex;flex-direction:column;gap:11px;flex:1}
+.mm{padding:9px 12px;font-size:.85rem;line-height:1.42;max-width:88%}
+.mm.u{align-self:flex-start;background:var(--paper-2);border-radius:4px 12px 12px 12px}
+.mm.a{align-self:flex-end;background:var(--ink);color:var(--paper-main);border-radius:12px 4px 12px 12px}
+.mm .who{font-size:.68rem;font-weight:700;color:var(--brown);margin-bottom:3px}
+.mm.a .who{color:var(--orange-0)}
+.badge{
+  margin-top:auto;display:inline-flex;align-self:flex-start;align-items:center;gap:6px;
+  font-size:.72rem;font-weight:700;color:var(--primary-jade);
+  border-top:1.5px dashed var(--paper-2);padding-top:11px;width:100%;
+}
+/* platform accent stripes on head */
+.mock .m-head{border-left:4px solid var(--primary-jade)}
+.mock.slack .m-head{background:linear-gradient(90deg, rgba(40,107,99,.12), transparent)}
+.mock.tg .m-head{background:linear-gradient(90deg, rgba(28,91,185,.12), transparent);border-left-color:var(--primary-blue)}
+.mock.dc .m-head{background:linear-gradient(90deg, rgba(234,88,23,.12), transparent);border-left-color:var(--core-orange)}
+.mock.teams .m-head{background:linear-gradient(90deg, rgba(28,91,185,.12), transparent);border-left-color:var(--blue-2)}
+.mock.web .m-head{background:linear-gradient(90deg, rgba(40,107,99,.12), transparent);border-left-color:var(--jade-2)}
+.plat-note{margin-top:40px;font-weight:700;font-size:1.02rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.plat-note .sync{display:inline-flex;align-items:center;gap:8px;color:var(--core-orange)}
+
+/* ---- How it works ---- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.step{
+  background:var(--paper-0);border:2px solid var(--ink);padding:32px 28px;
+  position:relative;
+}
+.sec-ink .step,.sec-brown .step{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.16)}
+.step .num{
+  font-family:var(--font-display);font-weight:900;font-size:2.6rem;
+  color:var(--core-orange);line-height:1;margin-bottom:16px;letter-spacing:-0.04em;
+}
+.step h3{font-size:1.5rem;margin-bottom:12px}
+.step p{color:var(--brown);margin:0;font-size:1rem}
+.sec-ink .step p,.sec-brown .step p{color:rgba(255,255,255,.88)}
+
+/* ---- Capabilities ---- */
+.caps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cap{
+  background:var(--paper-0);border:2px solid var(--ink);padding:26px 24px;
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.cap:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--ink)}
+@media (prefers-reduced-motion:reduce){.cap:hover{transform:none;box-shadow:none}}
+.cap .ic{
+  width:46px;height:46px;display:grid;place-items:center;margin-bottom:18px;
+  background:var(--paper-2);color:var(--core-orange);border:2px solid var(--ink);
+}
+.cap h3{font-size:1.28rem;margin-bottom:9px}
+.cap p{margin:0;color:var(--brown);font-size:.98rem}
+
+/* ---- Why / trust ---- */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.why-list{display:flex;flex-direction:column;gap:26px}
+.why-item{display:flex;gap:18px;align-items:flex-start}
+.why-item .wic{
+  width:48px;height:48px;flex:none;display:grid;place-items:center;
+  background:var(--core-orange);color:var(--paper-main);
+  box-shadow:4px 4px 0 rgba(0,0,0,.35);
+}
+.why-item h3{font-size:1.32rem;margin-bottom:7px}
+.why-item p{margin:0;color:var(--brown);font-size:1rem}
+.sec-brown .why-item p{color:rgba(255,255,255,.88)}
+.why-card{
+  background:var(--core-orange);color:var(--paper-main);
+  border:2px solid var(--ink);padding:40px 36px;
+  box-shadow:12px 12px 0 rgba(0,0,0,.4);
+}
+.why-card blockquote{margin:0;font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:-0.03em;font-size:1.9rem;line-height:1.02;color:var(--paper-main)}
+.why-card .attr{margin:22px 0 0;font-weight:700;font-size:1rem;color:var(--brown-1);text-transform:none;font-family:var(--font-body);letter-spacing:0}
+.why-card hr{border:none;border-top:2px solid rgba(255,255,255,.35);margin:26px 0}
+.why-card .stat{display:flex;gap:26px;flex-wrap:wrap}
+.why-card .stat b{display:block;font-family:var(--font-display);font-weight:900;font-size:2.1rem;letter-spacing:-0.03em;line-height:1}
+.why-card .stat span{font-size:.82rem;font-weight:700;color:var(--brown-1)}
+
+/* ---- Pricing ---- */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:900px;margin:0 auto}
+.price{
+  background:var(--paper-0);border:2px solid var(--ink);padding:38px 34px;
+  display:flex;flex-direction:column;
+}
+.price.feature{background:var(--ink);color:var(--paper-main);box-shadow:12px 12px 0 var(--core-orange);position:relative}
+.price .tier{font-family:var(--font-display);font-weight:900;text-transform:uppercase;letter-spacing:-0.03em;font-size:1.7rem;margin-bottom:6px}
+.price.feature .tier{color:var(--paper-main)}
+.price .tag{font-size:.95rem;color:var(--brown);margin-bottom:24px}
+.price.feature .tag{color:rgba(255,255,255,.88)}
+.price .amount{display:flex;align-items:baseline;gap:8px;margin-bottom:28px}
+.price .amount b{font-family:var(--font-display);font-weight:900;font-size:3.4rem;letter-spacing:-0.03em;line-height:1}
+.price .amount span{font-weight:700;color:var(--brown)}
+.price.feature .amount span{color:rgba(255,255,255,.88)}
+.price ul{list-style:none;padding:0;margin:0 0 30px}
+.price li{display:flex;gap:11px;align-items:flex-start;padding:8px 0;font-size:.98rem}
+.price li svg{flex:none;margin-top:3px;color:var(--primary-jade)}
+.price.feature li svg{color:var(--orange-0)}
+.price .foot{margin-top:auto}
+.price-tagline{margin-top:32px;text-align:center;font-weight:700;color:var(--brown)}
+.price-badge{
+  position:absolute;top:-14px;right:26px;background:var(--core-orange);color:var(--paper-main);
+  font-weight:700;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:2px solid var(--ink);
+}
+
+/* ---- Final CTA ---- */
+.cta-band{
+  background:var(--core-orange);color:var(--paper-main);
+  text-align:center;padding:96px 0;
+}
+.cta-band h2{font-size:clamp(2.3rem,6vw,4.4rem);color:var(--paper-main);margin-bottom:20px}
+.cta-band p{font-size:1.2rem;max-width:540px;margin:0 auto 36px;color:var(--brown-1);font-weight:700}
+.cta-band .btn-primary{background:var(--ink);color:var(--paper-main)}
+.cta-band .btn-primary:hover,.cta-band .btn-primary:focus-visible{background:#000}
+.cta-band .btn::after{background:rgba(0,0,0,.35)}
+
+/* ---- Footer ---- */
+footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
+.foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:44px}
+.foot-brand{max-width:340px}
+.foot-brand .brand{color:var(--paper-main);margin-bottom:16px}
+.foot-brand .brand .word{color:var(--paper-main)}
+.foot-brand p{color:rgba(255,255,255,.82);font-size:.95rem;margin:0}
+.foot-cols{display:flex;gap:64px;flex-wrap:wrap}
+.foot-col h4{font-family:var(--font-body);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.76rem;margin-bottom:16px;color:var(--orange-0)}
+.foot-col a{display:block;text-decoration:none;color:rgba(255,255,255,.86);font-size:.95rem;padding:5px 0;font-weight:400}
+.foot-col a:hover{opacity:1;color:var(--orange-0)}
+.foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;border-top:1px solid rgba(255,255,255,.2);padding-top:26px;font-size:.86rem;color:rgba(255,255,255,.8)}
+.foot-coop{display:inline-flex;align-items:center;gap:9px;font-weight:700}
+.foot-coop svg{flex:none;color:var(--orange-0)}
+
+/* reveal-on-scroll (progressive; content visible if JS off) */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease, transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.no-js .reveal{opacity:1;transform:none}
+
+/* ---- Responsive ---- */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .why-grid{grid-template-columns:1fr;gap:40px}
+  .steps,.caps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  section{padding:64px 0}
+  .hero{padding:44px 0 60px}
+  .steps,.caps,.price-grid{grid-template-columns:1fr}
+  .mock-grid .mock{flex:1 1 100%;max-width:none}
+  .phone{box-shadow:10px 10px 0 var(--ink)}
+  .foot-top{flex-direction:column}
+  .cta-band{padding:72px 0}
+  .why-card blockquote{font-size:1.6rem}
+}
+@media (max-width:400px){
+  .hero-cta{flex-direction:column;align-items:stretch}
+  .hero-cta .btn{width:100%}
+  .msg,.mm{max-width:92%}
+  .phone{box-shadow:8px 8px 0 var(--ink)}
+  .why-card{padding:30px 24px}
+  .why-card .stat{gap:18px}
+}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove('no-js');</script>
+<a href="#main" class="skip">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="labor.fun home">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg>
+      <span class="word">labor.fun</span>
+    </a>
+    <nav class="nav-cta" aria-label="Primary">
+      <div class="nav-anchors" id="navMenu">
+        <a href="#platforms">Where it lives</a>
+        <a href="#how">How it works</a>
+        <a href="#does">What it does</a>
+        <a href="#why">Worker-owned</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <a class="btn btn-primary" href="https://cloud.lab0r.fun">Request an invite</a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span>Invite-only · Free to start · No credit card</span>
+      <h1 id="hero-h">The assistant that lives in <span class="hl">your team's chat</span>.</h1>
+      <p class="hero-sub">Add labor.fun to your Slack, Telegram, Discord, Teams, or web chat. It learns your people and your docs, then does real work — right where you already talk.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="https://cloud.lab0r.fun">
+          Request an invite
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="link-arrow" href="#how">See how it works</a>
+      </div>
+      <div class="hero-trust">
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Private by design</span>
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/></svg>Worker-owned</span>
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>No trackers, ever</span>
+      </div>
+    </div>
+
+    <!-- Hero chat mockup -->
+    <div class="phone" role="img" aria-label="A Slack chat where a teammate asks labor.fun what the group decided about member dues, and it answers with the vote result and who owns rollout, citing the June 3 meeting notes.">
+      <div class="chat-head">
+        <span class="chat-avatar"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
+        <div class="chat-who">
+          <span class="name">labor.fun</span>
+          <span class="status">in #steering-committee</span>
+        </div>
+        <span class="chat-platform">Slack</span>
+      </div>
+      <div class="chat-body">
+        <div class="msg them"><div class="sender">Dani</div>What did we decide about the new member dues last month? And who's on point for it?</div>
+        <div class="msg bot"><div class="sender">labor.fun</div>You voted to set dues at <strong>$15/mo</strong> with a hardship waiver — 7 for, 1 abstain. <strong>Marta</strong> owns rollout, due the 15th.
+          <span class="cite"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>from Meeting Notes · June 3</span>
+        </div>
+        <div class="msg them"><div class="sender">Dani</div>Perfect. Remind the group Thursday morning?</div>
+        <div class="msg bot"><div class="sender">labor.fun</div>Done — I'll post the reminder here Thursday at 9am.</div>
+      </div>
+      <div class="chat-input">
+        <div class="fake-field">Message labor.fun…</div>
+        <div class="send" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-3-6-7-2z"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section id="platforms" class="sec-paper2" aria-labelledby="plat-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Where it lives</span>
+      <h2 id="plat-h">One assistant. Every chat your team already uses.</h2>
+      <p>No new app. No training. It shows up in the tools you're in all day — and it's the same assistant, with the same memory, across all of them.</p>
+    </div>
+
+    <div class="plat-row reveal">
+      <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="10" y="2" width="4" height="9" rx="2" fill="#36C5F0"/><rect x="13" y="10" width="9" height="4" rx="2" fill="#2EB67D"/><rect x="10" y="13" width="4" height="9" rx="2" fill="#ECB22E"/><rect x="2" y="10" width="9" height="4" rx="2" fill="#E01E5A"/></svg>Slack</span>
+      <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#229ED9"/><path d="M17.5 7.2l-2 9.6c-.15.66-.55.82-1.1.51l-3-2.2-1.45 1.4c-.16.16-.3.3-.6.3l.2-3 5.5-4.97c.24-.21-.05-.33-.37-.12l-6.8 4.28-2.93-.92c-.64-.2-.65-.64.13-.95l11.45-4.4c.53-.2 1 .12.87.86z" fill="#fff"/></svg>Telegram</span>
+      <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#5865F2"/><circle cx="8.5" cy="12" r="1.7" fill="#fff"/><circle cx="15.5" cy="12" r="1.7" fill="#fff"/></svg>Discord</span>
+      <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="6.5" r="2.6" fill="#7B83EB"/><path d="M13.4 11h6.8a1.2 1.2 0 0 1 1.2 1.2v3.3a3.7 3.7 0 0 1-3.7 3.7 3.7 3.7 0 0 1-3.7-3.7z" fill="#7B83EB"/><rect x="2" y="5.5" width="13" height="13" rx="2.2" fill="#5059C9"/><rect x="5.2" y="8.6" width="6.6" height="1.9" rx=".4" fill="#fff"/><rect x="7.55" y="8.6" width="1.9" height="7.3" rx=".4" fill="#fff"/></svg>Microsoft Teams</span>
+      <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b201a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg>Web chat</span>
+    </div>
+
+    <div class="mock-grid">
+      <div class="mock slack reveal">
+        <div class="m-head">
+          <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
+          <span class="tag">#organizing<small>Slack · 14 members</small></span>
+        </div>
+        <div class="m-body">
+          <div class="mm u"><div class="who">Priya</div>Can you pull the turnout numbers from last week's canvass and draft a quick recap?</div>
+          <div class="mm a"><div class="who">labor.fun</div>142 doors, 61 conversations, 19 new sign-ups. Draft recap is ready — want me to post it to the channel?</div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Research + drafting</span>
+        </div>
+      </div>
+
+      <div class="mock tg reveal">
+        <div class="m-head">
+          <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
+          <span class="tag">Mutual Aid<small>Telegram group</small></span>
+        </div>
+        <div class="m-body">
+          <div class="mm u"><div class="who">Sam</div>who's covering the food pickup saturday? and remind me what we owe the printer</div>
+          <div class="mm a"><div class="who">labor.fun</div>Jordan and Lee have Saturday pickup. The printer invoice is $84, due Friday — I've flagged it as an open task.</div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Task tracking + memory</span>
+        </div>
+      </div>
+
+      <div class="mock dc reveal">
+        <div class="m-head">
+          <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
+          <span class="tag">#co-op-general<small>Discord server</small></span>
+        </div>
+        <div class="m-body">
+          <div class="mm u"><div class="who">río</div>can you post the weekly finance summary every monday?</div>
+          <div class="mm a"><div class="who">labor.fun</div>Set. Every Monday 8am I'll post income, spend, and runway here, pulled from the shared ledger. First one lands next week.</div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Recurring reports</span>
+        </div>
+      </div>
+
+      <div class="mock teams reveal">
+        <div class="m-head">
+          <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
+          <span class="tag">Local 512<small>Microsoft Teams</small></span>
+        </div>
+        <div class="m-body">
+          <div class="mm u"><div class="who">Marcus</div>what did the grievance committee agree to about the shift-swap policy?</div>
+          <div class="mm a"><div class="who">labor.fun</div>The committee agreed swaps need 24h notice and a swap partner confirmed in-thread. Decided Feb 20 — logged it so nobody has to re-litigate it.</div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Decision tracking</span>
+        </div>
+      </div>
+
+      <div class="mock web reveal">
+        <div class="m-head">
+          <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
+          <span class="tag">labor.fun web chat<small>Right in your browser</small></span>
+        </div>
+        <div class="m-body">
+          <div class="mm u"><div class="who">You</div>draft a two-line announcement for the general meeting next Tuesday at 6</div>
+          <div class="mm a"><div class="who">labor.fun</div>"General meeting Tuesday at 6pm — agenda's the budget vote and the new steward roles. Come with questions." Want it shorter, or ready to send?</div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Drafting, no login needed</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="plat-note reveal">
+      <span class="sync"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg>One shared brain.</span>
+      Ask it something in Telegram, pick up the thread in Slack. Same memory, everywhere.
+    </p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="sec-ink" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 id="how-h">Up and running in three steps.</h2>
+      <p>No setup weekend. No consultant. You add it, it learns, it starts helping.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">01</div>
+        <h3>Add it to your group</h3>
+        <p>Invite labor.fun into your Slack channel, Telegram group, Discord server, or Teams — the same way you'd add a person.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">02</div>
+        <h3>It learns your world</h3>
+        <p>Point it at your docs and it picks up your people, your projects, and how your group actually works. Its memory is yours alone.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">03</div>
+        <h3>It does the work</h3>
+        <p>Ask questions, hand off tasks, set up recurring reports. It answers in the chat and remembers what came before.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT DOES -->
+<section id="does" class="sec-paper0" aria-labelledby="does-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What it actually does</span>
+      <h2 id="does-h">Real work, not a chatbot demo.</h2>
+      <p>Concrete jobs your group needs done, handled in the chat you're already in.</p>
+    </div>
+    <div class="caps">
+      <div class="cap reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+        <h3>Answers from your docs</h3>
+        <p>Ask what your handbook, notes, or ledger actually says — it answers with the source, not a guess.</p>
+      </div>
+      <div class="cap reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+        <h3>Research</h3>
+        <p>Send it a question and it digs, reads, and comes back with a clear answer you can act on.</p>
+      </div>
+      <div class="cap reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+        <h3>Drafting</h3>
+        <p>Announcements, meeting recaps, grant blurbs, replies. It writes the first version so you don't stare at a blank page.</p>
+      </div>
+      <div class="cap reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+        <h3>Scheduling &amp; reminders</h3>
+        <p>"Remind us Thursday," "nudge the group before the deadline." It keeps time so nobody has to.</p>
+      </div>
+      <div class="cap reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        <h3>Tasks &amp; decisions</h3>
+        <p>It tracks who owns what and what the group decided — so "wait, did we agree on this?" has an answer.</p>
+      </div>
+      <div class="cap reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
+        <h3>Recurring reports</h3>
+        <p>Weekly agendas, finance summaries, status roundups — posted automatically, on the day you pick.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY WORKER-OWNED -->
+<section id="why" class="sec-brown" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why it's different</span>
+      <h2 id="why-h">Built by a co-op. Answers to you, not to investors.</h2>
+      <p>Most workplace software is built to watch your team and sell what it learns. This isn't that.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-list">
+        <div class="why-item reveal">
+          <span class="wic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+          <div>
+            <h3>Private by design</h3>
+            <p>Every group runs in its own isolated container with its own memory. Your conversations and files never touch another group's — and there are no third-party trackers.</p>
+          </div>
+        </div>
+        <div class="why-item reveal">
+          <span class="wic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="18" cy="8" r="2.4"/><path d="M22 21v-1.5a3.5 3.5 0 0 0-3-3.4"/></svg></span>
+          <div>
+            <h3>Worker-owned, not VC-owned</h3>
+            <p>labor.fun is built by a cooperative and paid for by the tools it makes — not venture capital, not ads, not selling your data. The incentives point at you.</p>
+          </div>
+        </div>
+        <div class="why-item reveal">
+          <span class="wic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <div>
+            <h3>Transparent by default</h3>
+            <p>Open about how it works and what it does with your information. No black box, no fine print designed to trip you up.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="why-card reveal" aria-label="What we believe">
+        <blockquote>Your team's tools should work for your team.</blockquote>
+        <p class="attr">That's the whole idea. We build the assistant, you own how it's used, and the money comes from the product — not from surveilling the people using it.</p>
+        <hr />
+        <div class="stat">
+          <div><b>1</b><span>isolated container<br/>per group</span></div>
+          <div><b>0</b><span>third-party<br/>trackers</span></div>
+          <div><b>5</b><span>chat platforms,<br/>one memory</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="sec-paper2" aria-labelledby="price-h">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow" style="margin-left:auto;margin-right:auto">Pricing</span>
+      <h2 id="price-h">Free to start. Invite-only for now.</h2>
+      <p style="margin-left:auto;margin-right:auto">We're onboarding groups a few at a time so it works well for each one. Start free — no credit card, no sales call.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price feature reveal">
+        <span class="price-badge">Start here</span>
+        <div class="tier">Free</div>
+        <div class="tag">For a group getting started.</div>
+        <div class="amount"><b>$0</b><span>/ month · no card</span></div>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Add it to one group, on any platform</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Its own private memory &amp; container</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Research, drafting, tasks &amp; reminders</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>A monthly credit to try it, on us</li>
+        </ul>
+        <div class="foot"><a class="btn btn-paper btn-lg" href="https://cloud.lab0r.fun" style="width:100%">Get started free</a></div>
+      </div>
+      <div class="price reveal">
+        <div class="tier">For your whole org</div>
+        <div class="tag">When one group turns into many.</div>
+        <div class="amount"><b>Talk to us</b></div>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Multiple groups &amp; platforms, one shared brain</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>More usage as your work grows</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Fair, transparent pricing — co-op terms, no lock-in</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Help getting your people onboard</li>
+        </ul>
+        <div class="foot"><a class="btn btn-ink btn-lg" href="https://cloud.lab0r.fun" style="width:100%">Request an invite</a></div>
+      </div>
+    </div>
+    <p class="price-tagline reveal">No ads. No data resale. No credit card to begin. That's the deal.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-band" aria-labelledby="cta-h">
+  <div class="wrap">
+    <h2 id="cta-h">Put it to work in your chat.</h2>
+    <p>Bring labor.fun into your group and let it start doing the work. Free to try, invite-only, no credit card.</p>
+    <a class="btn btn-primary btn-lg" href="https://cloud.lab0r.fun">
+      Request an invite
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#top" class="brand" aria-label="labor.fun home">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg>
+          <span class="word">labor.fun</span>
+        </a>
+        <p>The assistant that lives in your team's chat. Built by working people, for working people.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>Product</h4>
+          <a href="#platforms">Where it lives</a>
+          <a href="#how">How it works</a>
+          <a href="#does">What it does</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <div class="foot-col">
+          <h4>Get started</h4>
+          <a href="https://cloud.lab0r.fun">Request an invite</a>
+          <a href="https://cloud.lab0r.fun">Sign in</a>
+          <a href="#why">Worker-owned</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="foot-coop">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M2 20v-1.5A4.5 4.5 0 0 1 6.5 14h3a4.5 4.5 0 0 1 4.5 4.5V20"/><path d="M16.5 13.5A3.5 3.5 0 0 1 20 17v3"/></svg>
+        A worker-owned cooperative · Funded by the tools it makes
+      </span>
+      <span>© 2026 labor.fun · lab0r.fun</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Mobile nav toggle
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('navMenu');
+  if(toggle && menu){
+    toggle.addEventListener('click', function(){
+      var open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.addEventListener('click', function(e){
+      if(e.target.tagName === 'A'){
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  // Scroll reveal (respects reduced motion; content already visible without JS)
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = [].slice.call(document.querySelectorAll('.reveal'));
+  if(reduce || !('IntersectionObserver' in window)){
+    els.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  function show(el){ el.classList.add('in'); }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ show(en.target); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function(el){ io.observe(el); });
+  // Safety net: reveal anything at/above the fold on load or fast scroll so
+  // nothing is ever stuck hidden (scroll restoration, jump links, momentum).
+  function sweep(){
+    var h = window.innerHeight || document.documentElement.clientHeight;
+    for(var i=els.length-1;i>=0;i--){
+      var el=els[i];
+      if(el.classList.contains('in')){ els.splice(i,1); continue; }
+      if(el.getBoundingClientRect().top < h*0.94){ show(el); io.unobserve(el); els.splice(i,1); }
+    }
+  }
+  sweep();
+  var ticking=false;
+  window.addEventListener('scroll', function(){
+    if(ticking) return; ticking=true;
+    window.requestAnimationFrame(function(){ sweep(); ticking=false; });
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
