@@ -170,6 +170,34 @@ header.nav{
   .nav-cta .btn{display:none}
 }
 
+/* ---- Language switcher ---- */
+.lang-switch{position:relative;display:inline-flex;align-items:center}
+.lang-switch::after{content:"";position:absolute;right:11px;top:50%;width:7px;height:7px;border-right:2px solid var(--brown);border-bottom:2px solid var(--brown);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+html[dir="rtl"] .lang-switch::after{right:auto;left:11px}
+.lang-select{
+  appearance:none;-webkit-appearance:none;
+  font-family:var(--font-body);font-weight:700;font-size:.9rem;
+  color:var(--ink);background:var(--paper-0);
+  border:2px solid var(--ink);border-radius:0;
+  padding:9px 30px 9px 13px;cursor:pointer;line-height:1;
+  transition:background-color .15s ease;
+}
+html[dir="rtl"] .lang-select{padding:9px 13px 9px 30px}
+.lang-select:hover{background:#fff}
+.lang-select:focus-visible{outline:3px solid var(--primary-blue);outline-offset:3px}
+@media (max-width:860px){ .lang-select{font-size:.82rem;padding:7px 26px 7px 11px} }
+
+/* ---- RTL (Hebrew, Arabic) ---- */
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,html[dir="rtl"] h4{text-transform:none}
+html[dir="rtl"] .msg.them{border-radius:14px 4px 14px 14px}
+html[dir="rtl"] .msg.bot{border-radius:4px 14px 14px 14px}
+html[dir="rtl"] .mm.u{border-radius:12px 4px 12px 12px}
+html[dir="rtl"] .mm.a{border-radius:4px 12px 12px 12px}
+html[dir="rtl"] .chat-platform{margin-left:0;margin-right:auto}
+html[dir="rtl"] .price-badge{right:auto;left:26px}
+html[dir="rtl"] .why-item .wic{box-shadow:-4px 4px 0 rgba(0,0,0,.35)}
+html[dir="rtl"] .btn svg{transform:scaleX(-1)}
+
 /* ---- Section rhythm ---- */
 section{padding:88px 0}
 .sec-ink{background:var(--ink);color:var(--paper-main)}
@@ -305,6 +333,8 @@ section{padding:88px 0}
 .mock.dc .m-head{background:linear-gradient(90deg, rgba(234,88,23,.12), transparent);border-left-color:var(--core-orange)}
 .mock.teams .m-head{background:linear-gradient(90deg, rgba(28,91,185,.12), transparent);border-left-color:var(--blue-2)}
 .mock.web .m-head{background:linear-gradient(90deg, rgba(40,107,99,.12), transparent);border-left-color:var(--jade-2)}
+.mock.signal .m-head{background:linear-gradient(90deg, rgba(58,118,240,.12), transparent);border-left-color:var(--primary-blue)}
+.mock.wa .m-head{background:linear-gradient(90deg, rgba(37,211,102,.14), transparent);border-left-color:#1e9e4d}
 .plat-note{margin-top:40px;font-weight:700;font-size:1.02rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .plat-note .sync{display:inline-flex;align-items:center;gap:8px;color:var(--core-orange)}
 
@@ -458,13 +488,14 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
     </a>
     <nav class="nav-cta" aria-label="Primary">
       <div class="nav-anchors" id="navMenu">
-        <a href="#platforms">Where it lives</a>
-        <a href="#how">How it works</a>
-        <a href="#does">What it does</a>
-        <a href="#why">Worker-owned</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#platforms" data-i18n="nav.live">Where it lives</a>
+        <a href="#how" data-i18n="nav.how">How it works</a>
+        <a href="#does" data-i18n="nav.does">What it does</a>
+        <a href="#why" data-i18n="nav.why">Worker-owned</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
       </div>
-      <a class="btn btn-primary" href="https://cloud.lab0r.fun">Request an invite</a>
+      <span class="lang-switch"><select class="lang-select" id="lang-select" aria-label="Language / שפה"></select></span>
+      <a class="btn btn-primary" href="https://cloud.lab0r.fun" data-i18n="nav.invite">Request an invite</a>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
@@ -479,20 +510,20 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
 <section class="hero" aria-labelledby="hero-h">
   <div class="wrap hero-grid">
     <div>
-      <span class="pill"><span class="dot"></span>Invite-only · Free to start · No credit card</span>
-      <h1 id="hero-h">The assistant that lives in <span class="hl">your team's chat</span>.</h1>
-      <p class="hero-sub">Add labor.fun to your Slack, Telegram, Discord, Teams, or web chat. It learns your people and your docs, then does real work — right where you already talk.</p>
+      <span class="pill"><span class="dot"></span><span data-i18n="hero.pill">Invite-only · Free to start · No credit card</span></span>
+      <h1 id="hero-h" data-i18n-html="hero.h1">The assistant that lives in <span class="hl">your team's chat</span>.</h1>
+      <p class="hero-sub" data-i18n="hero.sub">Add labor.fun to your Slack, Telegram, Discord, WhatsApp, Signal, Teams, or web chat. It learns your people and your docs, then does real work — right where you already talk.</p>
       <div class="hero-cta">
         <a class="btn btn-primary btn-lg" href="https://cloud.lab0r.fun">
-          Request an invite
+          <span data-i18n="nav.invite">Request an invite</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a class="link-arrow" href="#how">See how it works</a>
+        <a class="link-arrow" href="#how" data-i18n="hero.seehow">See how it works</a>
       </div>
       <div class="hero-trust">
-        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Private by design</span>
-        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/></svg>Worker-owned</span>
-        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>No trackers, ever</span>
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span data-i18n="hero.trust1">Private by design</span></span>
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/></svg><span data-i18n="hero.trust2">Worker-owned</span></span>
+        <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg><span data-i18n="hero.trust3">No trackers, ever</span></span>
       </div>
     </div>
 
@@ -502,20 +533,20 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
         <span class="chat-avatar"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
         <div class="chat-who">
           <span class="name">labor.fun</span>
-          <span class="status">in #steering-committee</span>
+          <span class="status" data-i18n="phone.status">in #steering-committee</span>
         </div>
         <span class="chat-platform">Slack</span>
       </div>
       <div class="chat-body">
-        <div class="msg them"><div class="sender">Dani</div>What did we decide about the new member dues last month? And who's on point for it?</div>
-        <div class="msg bot"><div class="sender">labor.fun</div>You voted to set dues at <strong>$15/mo</strong> with a hardship waiver — 7 for, 1 abstain. <strong>Marta</strong> owns rollout, due the 15th.
-          <span class="cite"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>from Meeting Notes · June 3</span>
+        <div class="msg them"><div class="sender">Dani</div><span data-i18n="phone.d1">What did we decide about the new member dues last month? And who's on point for it?</span></div>
+        <div class="msg bot"><div class="sender">labor.fun</div><span data-i18n-html="phone.b1">You voted to set dues at <strong>$15/mo</strong> with a hardship waiver — 7 for, 1 abstain. <strong>Marta</strong> owns rollout, due the 15th.</span>
+          <span class="cite"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg><span data-i18n="phone.cite">from Meeting Notes · June 3</span></span>
         </div>
-        <div class="msg them"><div class="sender">Dani</div>Perfect. Remind the group Thursday morning?</div>
-        <div class="msg bot"><div class="sender">labor.fun</div>Done — I'll post the reminder here Thursday at 9am.</div>
+        <div class="msg them"><div class="sender">Dani</div><span data-i18n="phone.d2">Perfect. Remind the group Thursday morning?</span></div>
+        <div class="msg bot"><div class="sender">labor.fun</div><span data-i18n="phone.b2">Done — I'll post the reminder here Thursday at 9am.</span></div>
       </div>
       <div class="chat-input">
-        <div class="fake-field">Message labor.fun…</div>
+        <div class="fake-field" data-i18n="phone.field">Message labor.fun…</div>
         <div class="send" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-3-6-7-2z"/></svg></div>
       </div>
     </div>
@@ -526,9 +557,9 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
 <section id="platforms" class="sec-paper2" aria-labelledby="plat-h">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">Where it lives</span>
-      <h2 id="plat-h">One assistant. Every chat your team already uses.</h2>
-      <p>No new app. No training. It shows up in the tools you're in all day — and it's the same assistant, with the same memory, across all of them.</p>
+      <span class="eyebrow" data-i18n="platforms.eyebrow">Where it lives</span>
+      <h2 id="plat-h" data-i18n="platforms.h2">One assistant. Every chat your team already uses.</h2>
+      <p data-i18n="platforms.p">No new app. No training. It shows up in the tools you're in all day — and it's the same assistant, with the same memory, across all of them.</p>
     </div>
 
     <div class="plat-row reveal">
@@ -536,74 +567,100 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
       <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#229ED9"/><path d="M17.5 7.2l-2 9.6c-.15.66-.55.82-1.1.51l-3-2.2-1.45 1.4c-.16.16-.3.3-.6.3l.2-3 5.5-4.97c.24-.21-.05-.33-.37-.12l-6.8 4.28-2.93-.92c-.64-.2-.65-.64.13-.95l11.45-4.4c.53-.2 1 .12.87.86z" fill="#fff"/></svg>Telegram</span>
       <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="5" fill="#5865F2"/><circle cx="8.5" cy="12" r="1.7" fill="#fff"/><circle cx="15.5" cy="12" r="1.7" fill="#fff"/></svg>Discord</span>
       <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="18" cy="6.5" r="2.6" fill="#7B83EB"/><path d="M13.4 11h6.8a1.2 1.2 0 0 1 1.2 1.2v3.3a3.7 3.7 0 0 1-3.7 3.7 3.7 3.7 0 0 1-3.7-3.7z" fill="#7B83EB"/><rect x="2" y="5.5" width="13" height="13" rx="2.2" fill="#5059C9"/><rect x="5.2" y="8.6" width="6.6" height="1.9" rx=".4" fill="#fff"/><rect x="7.55" y="8.6" width="1.9" height="7.3" rx=".4" fill="#fff"/></svg>Microsoft Teams</span>
-      <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b201a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg>Web chat</span>
+      <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#25D366"/><path d="M7.6 16.5l-.7 2.4 2.5-.66a5.6 5.6 0 1 0-1.8-1.74z" fill="#fff"/><path d="M10 8.3c-.15-.35-.3-.36-.44-.36l-.38-.01a.73.73 0 0 0-.53.25c-.18.2-.7.68-.7 1.66s.72 1.93.82 2.06c.1.13 1.4 2.24 3.48 3.06 1.73.68 2.08.55 2.46.51.38-.03 1.22-.5 1.4-.98.17-.48.17-.9.12-.98-.05-.09-.18-.14-.38-.24s-1.22-.6-1.4-.67c-.19-.07-.32-.1-.46.1-.13.2-.53.67-.65.8-.12.14-.24.16-.44.06a4.6 4.6 0 0 1-1.35-.83 5.1 5.1 0 0 1-.94-1.16c-.1-.17-.01-.26.08-.36.09-.09.19-.23.29-.35.1-.12.13-.2.19-.34.06-.13.03-.25-.02-.35-.05-.1-.44-1.08-.6-1.47z" fill="#25D366"/></svg><span data-i18n="plat.chip.whatsapp">WhatsApp</span></span>
+      <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#3A76F0"/><path d="M12 6.4a5.6 5.6 0 0 0-4.9 8.32l-.62 2.06a.5.5 0 0 0 .63.62l2.03-.6A5.6 5.6 0 1 0 12 6.4z" fill="#fff"/></svg><span data-i18n="plat.chip.signal">Signal</span></span>
+      <span class="plat-chip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b201a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg><span data-i18n="plat.chip.web">Web chat</span></span>
     </div>
 
     <div class="mock-grid">
       <div class="mock slack reveal">
         <div class="m-head">
           <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
-          <span class="tag">#organizing<small>Slack · 14 members</small></span>
+          <span class="tag"><span data-i18n="m.slack.tag">#organizing</span><small data-i18n="m.slack.sub">Slack · 14 members</small></span>
         </div>
         <div class="m-body">
-          <div class="mm u"><div class="who">Priya</div>Can you pull the turnout numbers from last week's canvass and draft a quick recap?</div>
-          <div class="mm a"><div class="who">labor.fun</div>142 doors, 61 conversations, 19 new sign-ups. Draft recap is ready — want me to post it to the channel?</div>
-          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Research + drafting</span>
+          <div class="mm u"><div class="who">Priya</div><span data-i18n="m.slack.u">Can you pull the turnout numbers from last week's canvass and draft a quick recap?</span></div>
+          <div class="mm a"><div class="who">labor.fun</div><span data-i18n="m.slack.a">142 doors, 61 conversations, 19 new sign-ups. Draft recap is ready — want me to post it to the channel?</span></div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="m.slack.badge">Research + drafting</span></span>
         </div>
       </div>
 
       <div class="mock tg reveal">
         <div class="m-head">
           <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
-          <span class="tag">Mutual Aid<small>Telegram group</small></span>
+          <span class="tag"><span data-i18n="m.tg.tag">Mutual Aid</span><small data-i18n="m.tg.sub">Telegram group</small></span>
         </div>
         <div class="m-body">
-          <div class="mm u"><div class="who">Sam</div>who's covering the food pickup saturday? and remind me what we owe the printer</div>
-          <div class="mm a"><div class="who">labor.fun</div>Jordan and Lee have Saturday pickup. The printer invoice is $84, due Friday — I've flagged it as an open task.</div>
-          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Task tracking + memory</span>
+          <div class="mm u"><div class="who">Sam</div><span data-i18n="m.tg.u">who's covering the food pickup saturday? and remind me what we owe the printer</span></div>
+          <div class="mm a"><div class="who">labor.fun</div><span data-i18n="m.tg.a">Jordan and Lee have Saturday pickup. The printer invoice is $84, due Friday — I've flagged it as an open task.</span></div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="m.tg.badge">Task tracking + memory</span></span>
         </div>
       </div>
 
       <div class="mock dc reveal">
         <div class="m-head">
           <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
-          <span class="tag">#co-op-general<small>Discord server</small></span>
+          <span class="tag"><span data-i18n="m.dc.tag">#co-op-general</span><small data-i18n="m.dc.sub">Discord server</small></span>
         </div>
         <div class="m-body">
-          <div class="mm u"><div class="who">río</div>can you post the weekly finance summary every monday?</div>
-          <div class="mm a"><div class="who">labor.fun</div>Set. Every Monday 8am I'll post income, spend, and runway here, pulled from the shared ledger. First one lands next week.</div>
-          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Recurring reports</span>
+          <div class="mm u"><div class="who">río</div><span data-i18n="m.dc.u">can you post the weekly finance summary every monday?</span></div>
+          <div class="mm a"><div class="who">labor.fun</div><span data-i18n="m.dc.a">Set. Every Monday 8am I'll post income, spend, and runway here, pulled from the shared ledger. First one lands next week.</span></div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="m.dc.badge">Recurring reports</span></span>
         </div>
       </div>
 
       <div class="mock teams reveal">
         <div class="m-head">
           <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
-          <span class="tag">Local 512<small>Microsoft Teams</small></span>
+          <span class="tag"><span data-i18n="m.teams.tag">Local 512</span><small data-i18n="m.teams.sub">Microsoft Teams</small></span>
         </div>
         <div class="m-body">
-          <div class="mm u"><div class="who">Marcus</div>what did the grievance committee agree to about the shift-swap policy?</div>
-          <div class="mm a"><div class="who">labor.fun</div>The committee agreed swaps need 24h notice and a swap partner confirmed in-thread. Decided Feb 20 — logged it so nobody has to re-litigate it.</div>
-          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Decision tracking</span>
+          <div class="mm u"><div class="who">Marcus</div><span data-i18n="m.teams.u">what did the grievance committee agree to about the shift-swap policy?</span></div>
+          <div class="mm a"><div class="who">labor.fun</div><span data-i18n="m.teams.a">The committee agreed swaps need 24h notice and a swap partner confirmed in-thread. Decided Feb 20 — logged it so nobody has to re-litigate it.</span></div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="m.teams.badge">Decision tracking</span></span>
+        </div>
+      </div>
+
+      <div class="mock signal reveal">
+        <div class="m-head">
+          <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
+          <span class="tag"><span data-i18n="m.sig.tag">Tenants Union</span><small data-i18n="m.sig.sub">Signal group</small></span>
+        </div>
+        <div class="m-body">
+          <div class="mm u"><div class="who">Aïsha</div><span data-i18n="m.sig.u">is my landlord allowed to raise rent mid-lease?</span></div>
+          <div class="mm a"><div class="who">labor.fun</div><span data-i18n="m.sig.a">Not under your lease — clause 8 fixes rent for the term. I've saved the section so you can share it with the group.</span></div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="m.sig.badge">Private · end-to-end encrypted</span></span>
+        </div>
+      </div>
+
+      <div class="mock wa reveal">
+        <div class="m-head">
+          <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
+          <span class="tag"><span data-i18n="m.wa.tag">Care Collective</span><small data-i18n="m.wa.sub">WhatsApp group</small></span>
+        </div>
+        <div class="m-body">
+          <div class="mm u"><div class="who">Kemi</div><span data-i18n="m.wa.u">who's free to drive the airport pickup friday night?</span></div>
+          <div class="mm a"><div class="who">labor.fun</div><span data-i18n="m.wa.a">Amara and Kofi said Friday works. I'll confirm the time and add it to the shared calendar.</span></div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="m.wa.badge">Coordination + memory</span></span>
         </div>
       </div>
 
       <div class="mock web reveal">
         <div class="m-head">
           <span class="chat-avatar" style="width:30px;height:30px"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg></span>
-          <span class="tag">labor.fun web chat<small>Right in your browser</small></span>
+          <span class="tag"><span data-i18n="m.web.tag">labor.fun web chat</span><small data-i18n="m.web.sub">Right in your browser</small></span>
         </div>
         <div class="m-body">
-          <div class="mm u"><div class="who">You</div>draft a two-line announcement for the general meeting next Tuesday at 6</div>
-          <div class="mm a"><div class="who">labor.fun</div>"General meeting Tuesday at 6pm — agenda's the budget vote and the new steward roles. Come with questions." Want it shorter, or ready to send?</div>
-          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Drafting, no login needed</span>
+          <div class="mm u"><div class="who" data-i18n="m.web.who">You</div><span data-i18n="m.web.u">draft a two-line announcement for the general meeting next Tuesday at 6</span></div>
+          <div class="mm a"><div class="who">labor.fun</div><span data-i18n="m.web.a">"General meeting Tuesday at 6pm — agenda's the budget vote and the new steward roles. Come with questions." Want it shorter, or ready to send?</span></div>
+          <span class="badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="m.web.badge">Drafting, no login needed</span></span>
         </div>
       </div>
     </div>
 
     <p class="plat-note reveal">
-      <span class="sync"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg>One shared brain.</span>
-      Ask it something in Telegram, pick up the thread in Slack. Same memory, everywhere.
+      <span class="sync"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg><span data-i18n="plat.note.sync">One shared brain.</span></span>
+      <span data-i18n="plat.note.rest">Ask it something in Telegram, pick up the thread in Slack. Same memory, everywhere.</span>
     </p>
   </div>
 </section>
@@ -612,25 +669,25 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
 <section id="how" class="sec-ink" aria-labelledby="how-h">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">How it works</span>
-      <h2 id="how-h">Up and running in three steps.</h2>
-      <p>No setup weekend. No consultant. You add it, it learns, it starts helping.</p>
+      <span class="eyebrow" data-i18n="how.eyebrow">How it works</span>
+      <h2 id="how-h" data-i18n="how.h2">Up and running in three steps.</h2>
+      <p data-i18n="how.p">No setup weekend. No consultant. You add it, it learns, it starts helping.</p>
     </div>
     <div class="steps">
       <div class="step reveal">
         <div class="num">01</div>
-        <h3>Add it to your group</h3>
-        <p>Invite labor.fun into your Slack channel, Telegram group, Discord server, or Teams — the same way you'd add a person.</p>
+        <h3 data-i18n="how.s1.h">Add it to your group</h3>
+        <p data-i18n="how.s1.p">Invite labor.fun into your Slack channel, Telegram group, Discord server, Signal, WhatsApp, or Teams — the same way you'd add a person.</p>
       </div>
       <div class="step reveal">
         <div class="num">02</div>
-        <h3>It learns your world</h3>
-        <p>Point it at your docs and it picks up your people, your projects, and how your group actually works. Its memory is yours alone.</p>
+        <h3 data-i18n="how.s2.h">It learns your world</h3>
+        <p data-i18n="how.s2.p">Point it at your docs and it picks up your people, your projects, and how your group actually works. Its memory is yours alone.</p>
       </div>
       <div class="step reveal">
         <div class="num">03</div>
-        <h3>It does the work</h3>
-        <p>Ask questions, hand off tasks, set up recurring reports. It answers in the chat and remembers what came before.</p>
+        <h3 data-i18n="how.s3.h">It does the work</h3>
+        <p data-i18n="how.s3.p">Ask questions, hand off tasks, set up recurring reports. It answers in the chat and remembers what came before.</p>
       </div>
     </div>
   </div>
@@ -640,40 +697,55 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
 <section id="does" class="sec-paper0" aria-labelledby="does-h">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">What it actually does</span>
-      <h2 id="does-h">Real work, not a chatbot demo.</h2>
-      <p>Concrete jobs your group needs done, handled in the chat you're already in.</p>
+      <span class="eyebrow" data-i18n="does.eyebrow">What it actually does</span>
+      <h2 id="does-h" data-i18n="does.h2">Real work, not a chatbot demo.</h2>
+      <p data-i18n="does.p">Concrete jobs your group needs done, handled in the chat you're already in.</p>
     </div>
     <div class="caps">
       <div class="cap reveal">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
-        <h3>Answers from your docs</h3>
-        <p>Ask what your handbook, notes, or ledger actually says — it answers with the source, not a guess.</p>
+        <h3 data-i18n="cap.docs.h">Answers from your docs</h3>
+        <p data-i18n="cap.docs.p">Ask what your handbook, notes, or ledger actually says — it answers with the source, not a guess.</p>
       </div>
       <div class="cap reveal">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
-        <h3>Research</h3>
-        <p>Send it a question and it digs, reads, and comes back with a clear answer you can act on.</p>
+        <h3 data-i18n="cap.research.h">Research</h3>
+        <p data-i18n="cap.research.p">Send it a question and it digs, reads, and comes back with a clear answer you can act on.</p>
       </div>
       <div class="cap reveal">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
-        <h3>Drafting</h3>
-        <p>Announcements, meeting recaps, grant blurbs, replies. It writes the first version so you don't stare at a blank page.</p>
+        <h3 data-i18n="cap.draft.h">Drafting</h3>
+        <p data-i18n="cap.draft.p">Announcements, meeting recaps, grant blurbs, replies. It writes the first version so you don't stare at a blank page.</p>
       </div>
       <div class="cap reveal">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-        <h3>Scheduling &amp; reminders</h3>
-        <p>"Remind us Thursday," "nudge the group before the deadline." It keeps time so nobody has to.</p>
+        <h3 data-i18n="cap.sched.h">Scheduling &amp; reminders</h3>
+        <p data-i18n="cap.sched.p">"Remind us Thursday," "nudge the group before the deadline." It keeps time so nobody has to.</p>
       </div>
       <div class="cap reveal">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
-        <h3>Tasks &amp; decisions</h3>
-        <p>It tracks who owns what and what the group decided — so "wait, did we agree on this?" has an answer.</p>
+        <h3 data-i18n="cap.tasks.h">Tasks &amp; decisions</h3>
+        <p data-i18n="cap.tasks.p">It tracks who owns what and what the group decided — so "wait, did we agree on this?" has an answer.</p>
       </div>
       <div class="cap reveal">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span>
-        <h3>Recurring reports</h3>
-        <p>Weekly agendas, finance summaries, status roundups — posted automatically, on the day you pick.</p>
+        <h3 data-i18n="cap.reports.h">Recurring reports</h3>
+        <p data-i18n="cap.reports.p">Weekly agendas, finance summaries, status roundups — posted automatically, on the day you pick.</p>
+      </div>
+      <div class="cap reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/></svg></span>
+        <h3 data-i18n="cap.connect.h">Syncs your existing docs</h3>
+        <p data-i18n="cap.connect.p">Point it at Notion, Google Drive, or your shared drive and it stays up to date — no copy-pasting, and it respects who's allowed to see what.</p>
+      </div>
+      <div class="cap reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <h3 data-i18n="cap.approve.h">Asks before it acts</h3>
+        <p data-i18n="cap.approve.p">For anything consequential — sending, posting, spending — it checks with a human first and waits for the go-ahead.</p>
+      </div>
+      <div class="cap reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span>
+        <h3 data-i18n="cap.verify.h">Runs on tech you can trust</h3>
+        <p data-i18n="cap.verify.p">Worker-owned infrastructure, with the option of open models and private, verifiable compute — not a black box you have to take on faith.</p>
       </div>
     </div>
   </div>
@@ -683,42 +755,42 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
 <section id="why" class="sec-brown" aria-labelledby="why-h">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">Why it's different</span>
-      <h2 id="why-h">Built by a co-op. Answers to you, not to investors.</h2>
-      <p>Most workplace software is built to watch your team and sell what it learns. This isn't that.</p>
+      <span class="eyebrow" data-i18n="why.eyebrow">Why it's different</span>
+      <h2 id="why-h" data-i18n="why.h2">Built by a co-op. Answers to you, not to investors.</h2>
+      <p data-i18n="why.p">Most workplace software is built to watch your team and sell what it learns. This isn't that.</p>
     </div>
     <div class="why-grid">
       <div class="why-list">
         <div class="why-item reveal">
           <span class="wic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
           <div>
-            <h3>Private by design</h3>
-            <p>Every group runs in its own isolated container with its own memory. Your conversations and files never touch another group's — and there are no third-party trackers.</p>
+            <h3 data-i18n="why.i1.h">Private by design</h3>
+            <p data-i18n="why.i1.p">Every group runs in its own isolated container with its own memory. Your conversations and files never touch another group's, there are no third-party trackers, and it can run on private infrastructure you're able to verify.</p>
           </div>
         </div>
         <div class="why-item reveal">
           <span class="wic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="18" cy="8" r="2.4"/><path d="M22 21v-1.5a3.5 3.5 0 0 0-3-3.4"/></svg></span>
           <div>
-            <h3>Worker-owned, not VC-owned</h3>
-            <p>labor.fun is built by a cooperative and paid for by the tools it makes — not venture capital, not ads, not selling your data. The incentives point at you.</p>
+            <h3 data-i18n="why.i2.h">Worker-owned, not VC-owned</h3>
+            <p data-i18n="why.i2.p">labor.fun is built by a cooperative and paid for by the tools it makes — not venture capital, not ads, not selling your data. The incentives point at you.</p>
           </div>
         </div>
         <div class="why-item reveal">
           <span class="wic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
           <div>
-            <h3>Transparent by default</h3>
-            <p>Open about how it works and what it does with your information. No black box, no fine print designed to trip you up.</p>
+            <h3 data-i18n="why.i3.h">Transparent by default</h3>
+            <p data-i18n="why.i3.p">Open about how it works and what it does with your information. No black box, no fine print designed to trip you up.</p>
           </div>
         </div>
       </div>
       <aside class="why-card reveal" aria-label="What we believe">
-        <blockquote>Your team's tools should work for your team.</blockquote>
-        <p class="attr">That's the whole idea. We build the assistant, you own how it's used, and the money comes from the product — not from surveilling the people using it.</p>
+        <blockquote data-i18n="why.card.quote">Your team's tools should work for your team.</blockquote>
+        <p class="attr" data-i18n="why.card.attr">That's the whole idea. We build the assistant, you own how it's used, and the money comes from the product — not from surveilling the people using it.</p>
         <hr />
         <div class="stat">
-          <div><b>1</b><span>isolated container<br/>per group</span></div>
-          <div><b>0</b><span>third-party<br/>trackers</span></div>
-          <div><b>5</b><span>chat platforms,<br/>one memory</span></div>
+          <div><b>1</b><span data-i18n-html="why.stat1">isolated container<br/>per group</span></div>
+          <div><b>0</b><span data-i18n-html="why.stat2">third-party<br/>trackers</span></div>
+          <div><b>7</b><span data-i18n-html="why.stat3">chat platforms,<br/>one memory</span></div>
         </div>
       </aside>
     </div>
@@ -729,48 +801,48 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
 <section id="pricing" class="sec-paper2" aria-labelledby="price-h">
   <div class="wrap">
     <div class="sec-head reveal" style="margin-left:auto;margin-right:auto;text-align:center">
-      <span class="eyebrow" style="margin-left:auto;margin-right:auto">Pricing</span>
-      <h2 id="price-h">Free to start. Invite-only for now.</h2>
-      <p style="margin-left:auto;margin-right:auto">We're onboarding groups a few at a time so it works well for each one. Start free — no credit card, no sales call.</p>
+      <span class="eyebrow" style="margin-left:auto;margin-right:auto" data-i18n="pricing.eyebrow">Pricing</span>
+      <h2 id="price-h" data-i18n="pricing.h2">Free to start. Invite-only for now.</h2>
+      <p style="margin-left:auto;margin-right:auto" data-i18n="pricing.p">We're onboarding groups a few at a time so it works well for each one. Start free — no credit card, no sales call.</p>
     </div>
     <div class="price-grid">
       <div class="price feature reveal">
-        <span class="price-badge">Start here</span>
-        <div class="tier">Free</div>
-        <div class="tag">For a group getting started.</div>
-        <div class="amount"><b>$0</b><span>/ month · no card</span></div>
+        <span class="price-badge" data-i18n="pricing.free.badge">Start here</span>
+        <div class="tier" data-i18n="pricing.free.tier">Free</div>
+        <div class="tag" data-i18n="pricing.free.tag">For a group getting started.</div>
+        <div class="amount"><b>$0</b><span data-i18n="pricing.free.amt">/ month · no card</span></div>
         <ul>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Add it to one group, on any platform</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Its own private memory &amp; container</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Research, drafting, tasks &amp; reminders</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>A monthly credit to try it, on us</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pricing.free.l1">Add it to one group, on any platform</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pricing.free.l2">Its own private memory &amp; container</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pricing.free.l3">Research, drafting, tasks &amp; reminders</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pricing.free.l4">A monthly credit to try it, on us</span></li>
         </ul>
-        <div class="foot"><a class="btn btn-paper btn-lg" href="https://cloud.lab0r.fun" style="width:100%">Get started free</a></div>
+        <div class="foot"><a class="btn btn-paper btn-lg" href="https://cloud.lab0r.fun" style="width:100%" data-i18n="pricing.free.cta">Get started free</a></div>
       </div>
       <div class="price reveal">
-        <div class="tier">For your whole org</div>
-        <div class="tag">When one group turns into many.</div>
-        <div class="amount"><b>Talk to us</b></div>
+        <div class="tier" data-i18n="pricing.org.tier">For your whole org</div>
+        <div class="tag" data-i18n="pricing.org.tag">When one group turns into many.</div>
+        <div class="amount"><b data-i18n="pricing.org.amt">Talk to us</b></div>
         <ul>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Multiple groups &amp; platforms, one shared brain</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>More usage as your work grows</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Fair, transparent pricing — co-op terms, no lock-in</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Help getting your people onboard</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pricing.org.l1">Multiple groups &amp; platforms, one shared brain</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pricing.org.l2">More usage as your work grows</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pricing.org.l3">Fair, transparent pricing — co-op terms, no lock-in</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="pricing.org.l4">Help getting your people onboard</span></li>
         </ul>
-        <div class="foot"><a class="btn btn-ink btn-lg" href="https://cloud.lab0r.fun" style="width:100%">Request an invite</a></div>
+        <div class="foot"><a class="btn btn-ink btn-lg" href="https://cloud.lab0r.fun" style="width:100%" data-i18n="nav.invite">Request an invite</a></div>
       </div>
     </div>
-    <p class="price-tagline reveal">No ads. No data resale. No credit card to begin. That's the deal.</p>
+    <p class="price-tagline reveal" data-i18n="pricing.tagline">No ads. No data resale. No credit card to begin. That's the deal.</p>
   </div>
 </section>
 
 <!-- FINAL CTA -->
 <section class="cta-band" aria-labelledby="cta-h">
   <div class="wrap">
-    <h2 id="cta-h">Put it to work in your chat.</h2>
-    <p>Bring labor.fun into your group and let it start doing the work. Free to try, invite-only, no credit card.</p>
+    <h2 id="cta-h" data-i18n="cta.h2">Put it to work in your chat.</h2>
+    <p data-i18n="cta.p">Bring labor.fun into your group and let it start doing the work. Free to try, invite-only, no credit card.</p>
     <a class="btn btn-primary btn-lg" href="https://cloud.lab0r.fun">
-      Request an invite
+      <span data-i18n="nav.invite">Request an invite</span>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
   </div>
@@ -786,28 +858,28 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="24" height="24" rx="1" fill="#EA5817"/><path d="M12 2C17.5229 2 22 6.47707 22 12C22 17.5229 17.5229 22 12 22C6.47715 22 2 17.5229 2 12C2 6.47708 6.47715 2.00003 12 2ZM14.3408 5.29297C12.4756 3.38695 9.24614 4.31242 9.00781 7.06836C8.71004 10.2135 6.428 8.50568 4.73242 10.2549C4.23121 10.8325 3.93217 11.6407 4.03223 12.4004C4.1788 13.457 5.00016 14.3578 6.04688 14.6133C7.23725 14.9308 8.47122 14.7913 8.87402 16.2539C9.10395 17.2226 9.02515 18.1173 9.82617 18.873C11.2248 20.1897 13.7586 20.0309 14.666 18.251C14.9821 17.6941 15.0286 17.0362 15.1455 16.4199C15.2641 15.7661 15.6561 15.2425 16.2715 15.0195C17.1065 14.6907 18.1474 14.7487 18.916 14.209C19.7227 13.6639 20.1575 12.6219 20.0127 11.665L20.0107 11.6553H20.0117C19.8534 10.6212 18.999 9.75756 18.0195 9.45215C17.4388 9.2583 16.7938 9.27297 16.2266 9.03711C15.7147 8.84214 15.3674 8.41598 15.2119 7.89551C14.9524 6.97173 15.0667 6.05432 14.3408 5.29297ZM11.5635 9.73633C13.5275 9.52302 14.8604 10.5413 14.5449 12.5957L14.542 12.6064C14.3779 13.5544 13.7225 14.1602 12.7842 14.2852C12.2152 14.3748 11.5674 14.3599 11.0068 14.2266C10.7009 14.1515 10.4206 14.0289 10.1963 13.8496C9.41978 13.2008 9.2933 11.9151 9.65918 10.999C9.97258 10.2334 10.7541 9.81643 11.5635 9.73633Z" fill="#F6F3EB"/></svg>
           <span class="word">labor.fun</span>
         </a>
-        <p>The assistant that lives in your team's chat. Built by working people, for working people.</p>
+        <p data-i18n="footer.tagline">The assistant that lives in your team's chat. Built by working people, for working people.</p>
       </div>
       <div class="foot-cols">
         <div class="foot-col">
-          <h4>Product</h4>
-          <a href="#platforms">Where it lives</a>
-          <a href="#how">How it works</a>
-          <a href="#does">What it does</a>
-          <a href="#pricing">Pricing</a>
+          <h4 data-i18n="footer.col1.h">Product</h4>
+          <a href="#platforms" data-i18n="nav.live">Where it lives</a>
+          <a href="#how" data-i18n="nav.how">How it works</a>
+          <a href="#does" data-i18n="nav.does">What it does</a>
+          <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
         </div>
         <div class="foot-col">
-          <h4>Get started</h4>
-          <a href="https://cloud.lab0r.fun">Request an invite</a>
-          <a href="https://cloud.lab0r.fun">Sign in</a>
-          <a href="#why">Worker-owned</a>
+          <h4 data-i18n="footer.col2.h">Get started</h4>
+          <a href="https://cloud.lab0r.fun" data-i18n="nav.invite">Request an invite</a>
+          <a href="https://cloud.lab0r.fun" data-i18n="footer.signin">Sign in</a>
+          <a href="#why" data-i18n="nav.why">Worker-owned</a>
         </div>
       </div>
     </div>
     <div class="foot-bottom">
       <span class="foot-coop">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M2 20v-1.5A4.5 4.5 0 0 1 6.5 14h3a4.5 4.5 0 0 1 4.5 4.5V20"/><path d="M16.5 13.5A3.5 3.5 0 0 1 20 17v3"/></svg>
-        A worker-owned cooperative · Funded by the tools it makes
+        <span data-i18n="footer.coop">A worker-owned cooperative · Funded by the tools it makes</span>
       </span>
       <span>© 2026 labor.fun · lab0r.fun</span>
     </div>
@@ -862,6 +934,67 @@ footer{background:var(--brown-1);color:var(--paper-main);padding:64px 0 40px}
     if(ticking) return; ticking=true;
     window.requestAnimationFrame(function(){ sweep(); ticking=false; });
   }, {passive:true});
+})();
+</script>
+<script src="translations.js"></script>
+<script>
+(function(){
+  var I18N = { en: {"hero.h1":"The assistant that lives in <span class=\"hl\">your team's chat</span>.","phone.b1":"You voted to set dues at <strong>$15/mo</strong> with a hardship waiver — 7 for, 1 abstain. <strong>Marta</strong> owns rollout, due the 15th.","why.stat1":"isolated container<br/>per group","why.stat2":"third-party<br/>trackers","why.stat3":"chat platforms,<br/>one memory","nav.live":"Where it lives","nav.how":"How it works","nav.does":"What it does","nav.why":"Worker-owned","nav.pricing":"Pricing","nav.invite":"Request an invite","hero.pill":"Invite-only · Free to start · No credit card","hero.sub":"Add labor.fun to your Slack, Telegram, Discord, WhatsApp, Signal, Teams, or web chat. It learns your people and your docs, then does real work — right where you already talk.","hero.seehow":"See how it works","hero.trust1":"Private by design","hero.trust2":"Worker-owned","hero.trust3":"No trackers, ever","phone.status":"in #steering-committee","phone.d1":"What did we decide about the new member dues last month? And who's on point for it?","phone.cite":"from Meeting Notes · June 3","phone.d2":"Perfect. Remind the group Thursday morning?","phone.b2":"Done — I'll post the reminder here Thursday at 9am.","phone.field":"Message labor.fun…","platforms.eyebrow":"Where it lives","platforms.h2":"One assistant. Every chat your team already uses.","platforms.p":"No new app. No training. It shows up in the tools you're in all day — and it's the same assistant, with the same memory, across all of them.","plat.chip.whatsapp":"WhatsApp","plat.chip.signal":"Signal","plat.chip.web":"Web chat","m.slack.tag":"#organizing","m.slack.sub":"Slack · 14 members","m.slack.u":"Can you pull the turnout numbers from last week's canvass and draft a quick recap?","m.slack.a":"142 doors, 61 conversations, 19 new sign-ups. Draft recap is ready — want me to post it to the channel?","m.slack.badge":"Research + drafting","m.tg.tag":"Mutual Aid","m.tg.sub":"Telegram group","m.tg.u":"who's covering the food pickup saturday? and remind me what we owe the printer","m.tg.a":"Jordan and Lee have Saturday pickup. The printer invoice is $84, due Friday — I've flagged it as an open task.","m.tg.badge":"Task tracking + memory","m.dc.tag":"#co-op-general","m.dc.sub":"Discord server","m.dc.u":"can you post the weekly finance summary every monday?","m.dc.a":"Set. Every Monday 8am I'll post income, spend, and runway here, pulled from the shared ledger. First one lands next week.","m.dc.badge":"Recurring reports","m.teams.tag":"Local 512","m.teams.sub":"Microsoft Teams","m.teams.u":"what did the grievance committee agree to about the shift-swap policy?","m.teams.a":"The committee agreed swaps need 24h notice and a swap partner confirmed in-thread. Decided Feb 20 — logged it so nobody has to re-litigate it.","m.teams.badge":"Decision tracking","m.sig.tag":"Tenants Union","m.sig.sub":"Signal group","m.sig.u":"is my landlord allowed to raise rent mid-lease?","m.sig.a":"Not under your lease — clause 8 fixes rent for the term. I've saved the section so you can share it with the group.","m.sig.badge":"Private · end-to-end encrypted","m.wa.tag":"Care Collective","m.wa.sub":"WhatsApp group","m.wa.u":"who's free to drive the airport pickup friday night?","m.wa.a":"Amara and Kofi said Friday works. I'll confirm the time and add it to the shared calendar.","m.wa.badge":"Coordination + memory","m.web.tag":"labor.fun web chat","m.web.sub":"Right in your browser","m.web.who":"You","m.web.u":"draft a two-line announcement for the general meeting next Tuesday at 6","m.web.a":"\"General meeting Tuesday at 6pm — agenda's the budget vote and the new steward roles. Come with questions.\" Want it shorter, or ready to send?","m.web.badge":"Drafting, no login needed","plat.note.sync":"One shared brain.","plat.note.rest":"Ask it something in Telegram, pick up the thread in Slack. Same memory, everywhere.","how.eyebrow":"How it works","how.h2":"Up and running in three steps.","how.p":"No setup weekend. No consultant. You add it, it learns, it starts helping.","how.s1.h":"Add it to your group","how.s1.p":"Invite labor.fun into your Slack channel, Telegram group, Discord server, Signal, WhatsApp, or Teams — the same way you'd add a person.","how.s2.h":"It learns your world","how.s2.p":"Point it at your docs and it picks up your people, your projects, and how your group actually works. Its memory is yours alone.","how.s3.h":"It does the work","how.s3.p":"Ask questions, hand off tasks, set up recurring reports. It answers in the chat and remembers what came before.","does.eyebrow":"What it actually does","does.h2":"Real work, not a chatbot demo.","does.p":"Concrete jobs your group needs done, handled in the chat you're already in.","cap.docs.h":"Answers from your docs","cap.docs.p":"Ask what your handbook, notes, or ledger actually says — it answers with the source, not a guess.","cap.research.h":"Research","cap.research.p":"Send it a question and it digs, reads, and comes back with a clear answer you can act on.","cap.draft.h":"Drafting","cap.draft.p":"Announcements, meeting recaps, grant blurbs, replies. It writes the first version so you don't stare at a blank page.","cap.sched.h":"Scheduling & reminders","cap.sched.p":"\"Remind us Thursday,\" \"nudge the group before the deadline.\" It keeps time so nobody has to.","cap.tasks.h":"Tasks & decisions","cap.tasks.p":"It tracks who owns what and what the group decided — so \"wait, did we agree on this?\" has an answer.","cap.reports.h":"Recurring reports","cap.reports.p":"Weekly agendas, finance summaries, status roundups — posted automatically, on the day you pick.","cap.connect.h":"Syncs your existing docs","cap.connect.p":"Point it at Notion, Google Drive, or your shared drive and it stays up to date — no copy-pasting, and it respects who's allowed to see what.","cap.approve.h":"Asks before it acts","cap.approve.p":"For anything consequential — sending, posting, spending — it checks with a human first and waits for the go-ahead.","cap.verify.h":"Runs on tech you can trust","cap.verify.p":"Worker-owned infrastructure, with the option of open models and private, verifiable compute — not a black box you have to take on faith.","why.eyebrow":"Why it's different","why.h2":"Built by a co-op. Answers to you, not to investors.","why.p":"Most workplace software is built to watch your team and sell what it learns. This isn't that.","why.i1.h":"Private by design","why.i1.p":"Every group runs in its own isolated container with its own memory. Your conversations and files never touch another group's, there are no third-party trackers, and it can run on private infrastructure you're able to verify.","why.i2.h":"Worker-owned, not VC-owned","why.i2.p":"labor.fun is built by a cooperative and paid for by the tools it makes — not venture capital, not ads, not selling your data. The incentives point at you.","why.i3.h":"Transparent by default","why.i3.p":"Open about how it works and what it does with your information. No black box, no fine print designed to trip you up.","why.card.quote":"Your team's tools should work for your team.","why.card.attr":"That's the whole idea. We build the assistant, you own how it's used, and the money comes from the product — not from surveilling the people using it.","pricing.eyebrow":"Pricing","pricing.h2":"Free to start. Invite-only for now.","pricing.p":"We're onboarding groups a few at a time so it works well for each one. Start free — no credit card, no sales call.","pricing.free.badge":"Start here","pricing.free.tier":"Free","pricing.free.tag":"For a group getting started.","pricing.free.amt":"/ month · no card","pricing.free.l1":"Add it to one group, on any platform","pricing.free.l2":"Its own private memory & container","pricing.free.l3":"Research, drafting, tasks & reminders","pricing.free.l4":"A monthly credit to try it, on us","pricing.free.cta":"Get started free","pricing.org.tier":"For your whole org","pricing.org.tag":"When one group turns into many.","pricing.org.amt":"Talk to us","pricing.org.l1":"Multiple groups & platforms, one shared brain","pricing.org.l2":"More usage as your work grows","pricing.org.l3":"Fair, transparent pricing — co-op terms, no lock-in","pricing.org.l4":"Help getting your people onboard","pricing.tagline":"No ads. No data resale. No credit card to begin. That's the deal.","cta.h2":"Put it to work in your chat.","cta.p":"Bring labor.fun into your group and let it start doing the work. Free to try, invite-only, no credit card.","footer.tagline":"The assistant that lives in your team's chat. Built by working people, for working people.","footer.col1.h":"Product","footer.col2.h":"Get started","footer.signin":"Sign in","footer.coop":"A worker-owned cooperative · Funded by the tools it makes","meta.title":"labor.fun — the assistant that lives in your team's chat","meta.desc":"labor.fun is a capable AI assistant that lives inside the chat your team already uses — Slack, Telegram, Discord, WhatsApp, Signal, Teams, and web. It remembers your group, knows your people and docs, and does real work. Worker-owned. Private by design. Free to start."} };
+  if (window.I18N_TRANSLATIONS) {
+    for (var c in window.I18N_TRANSLATIONS) {
+      if (Object.prototype.hasOwnProperty.call(window.I18N_TRANSLATIONS, c)) I18N[c] = window.I18N_TRANSLATIONS[c];
+    }
+  }
+  var LANGS = [
+    {code:"en",name:"English"},
+    {code:"ar",name:"\u0627\u0644\u0639\u0631\u0628\u064a\u0629"},{code:"es",name:"Espa\u00f1ol"},
+    {code:"fr",name:"Fran\u00e7ais"},{code:"de",name:"Deutsch"},{code:"pt",name:"Portugu\u00eas"},
+    {code:"ru",name:"\u0420\u0443\u0441\u0441\u043a\u0438\u0439"},{code:"zh",name:"\u4e2d\u6587"},
+    {code:"ja",name:"\u65e5\u672c\u8a9e"},{code:"hi",name:"\u0939\u093f\u0928\u094d\u0926\u0940"},
+    {code:"he",name:"\u05e2\u05d1\u05e8\u05d9\u05ea"}
+  ];
+  var RTL = { he:true, ar:true };
+
+  function t(lang, key){
+    var d = I18N[lang];
+    if (d && d[key] != null) return d[key];
+    return I18N.en[key] != null ? I18N.en[key] : key;
+  }
+  function applyLang(lang){
+    if (!I18N[lang]) lang = "en";
+    var root = document.documentElement;
+    root.lang = lang;
+    root.dir = RTL[lang] ? "rtl" : "ltr";
+    var n = document.querySelectorAll("[data-i18n]"), i;
+    for (i=0;i<n.length;i++) n[i].textContent = t(lang, n[i].getAttribute("data-i18n"));
+    var hn = document.querySelectorAll("[data-i18n-html]");
+    for (i=0;i<hn.length;i++) hn[i].innerHTML = t(lang, hn[i].getAttribute("data-i18n-html"));
+    document.title = t(lang, "meta.title");
+    var md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute("content", t(lang, "meta.desc"));
+    try { localStorage.setItem("labor_lang", lang); } catch(e){}
+    var sel = document.getElementById("lang-select");
+    if (sel) sel.value = lang;
+  }
+  window.applyLang = applyLang;
+
+  var sel = document.getElementById("lang-select");
+  if (sel){
+    for (var i=0;i<LANGS.length;i++){
+      if (LANGS[i].code !== "en" && !I18N[LANGS[i].code]) continue;
+      var o = document.createElement("option");
+      o.value = LANGS[i].code; o.textContent = LANGS[i].name;
+      sel.appendChild(o);
+    }
+    sel.addEventListener("change", function(){ applyLang(this.value); });
+  }
+  var lang = "en";
+  try {
+    var saved = localStorage.getItem("labor_lang");
+    if (saved && I18N[saved]) lang = saved;
+    else { var b = (navigator.language||"en").slice(0,2).toLowerCase(); if (I18N[b]) lang = b; }
+  } catch(e){}
+  applyLang(lang);
 })();
 </script>
 </body>
